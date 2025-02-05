@@ -1,8 +1,8 @@
 import network
 import time
 
-ssid = "YourWiFiName"
-password = "YourWiFiPassword"
+ssid = "mywifi"
+password = "password"
 
 sta = network.WLAN(network.STA_IF)  # Create a station interface
 sta.active(True)  # Activate Wi-Fi
@@ -14,3 +14,11 @@ while not sta.isconnected():
     time.sleep(1)
 
 print("Connected! IP Address:", sta.ifconfig()[0])  # Print IP address
+
+print("Wi-Fi Signal Strength:", sta.status('rssi'), "dBm")
+while True:
+    if not sta.isconnected():
+        print("Reconnecting...")
+        sta.connect(ssid, password)
+    time.sleep(5)
+
